@@ -1,0 +1,46 @@
+#include <iostream>
+#include <fstream>
+#include "stack.hpp"
+#include "string.hpp"
+#include "utilities.hpp"
+#include <vector>
+
+void MakePostfix(String& expr) const{
+  //std::cout << "entering make postfix function" << std::endl;
+  stack<String> result;
+
+  /*if(!file){
+    std::cout << "File did not open" << std::endl;
+    exit(1);
+    }*/
+  //file >> expr;
+  String temp(expr);
+  std::cout << "Infix expression: " << temp << std::endl;
+
+  String right, left, oper;
+  int length = temp.length();
+  //std::vector<String> part = expr.split(' ');
+  int i = 0;
+  while (i < length && temp[i] != ';'){
+    if(temp[i] == ')'){
+      right = result.pop();
+      oper = result.pop();
+      left = result.pop();
+      result.push(left + right + oper);
+    }
+    else {
+      if (temp[i] != '('){
+	//std::cout << "expression part being pushed: " << expr[i] << std::endl;
+	result.push(temp[i]);
+      }
+    }
+    ++i;
+  }
+  //std::cout << "result top is: " << result.top() << std::endl;
+  temp = result.top();
+  //expr = temp;
+  std::cout << "Postfix Expression: " << temp << std::endl;
+}
+
+
+   
